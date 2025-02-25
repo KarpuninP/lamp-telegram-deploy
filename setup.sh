@@ -4,9 +4,9 @@ set -e  # Останавливаем выполнение при ошибках
 
 # === Запуск от имени root ===
 if [ "$EUID" -ne 0 ]; then
-    echo "Запускаем скрипт с правами root..."
-    sudo -i bash "$0"
-    exit
+    echo "Перезапусти скрипт с правами root:"
+    echo "sudo bash setup.sh"
+    exit 1
 fi
 
 # === ПЕРЕМЕННЫЕ ===
