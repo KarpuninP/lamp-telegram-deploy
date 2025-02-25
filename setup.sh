@@ -3,7 +3,7 @@
 set -e  # Останавливаем выполнение при ошибках
 
 # === ПЕРЕМЕННЫЕ ===
-GIT_REPO="git@github.com:username/repository.git"  # Замени на свой репозиторий
+GIT_REPO="https://github.com/KarpuninP/lamp-telegram-deploy.git"  # Замени на свой репозиторий
 PROJECT_DIR="/var/www/project"
 PUBLIC_DIR="$PROJECT_DIR/public"
 BOT_DIR="$PROJECT_DIR/bot"
