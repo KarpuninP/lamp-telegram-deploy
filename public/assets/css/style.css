@@ -1,0 +1,1186 @@
+
+@media (min-width: 768px) {
+    body {
+        background: radial-gradient(50% 50% at 50% 50%, rgba(26, 21, 21, 0) 0%, rgba(1, 1, 1, 0.16) 100%), #FFFFFF;
+        mix-blend-mode: normal;
+    }
+
+    h2 {
+        display: inline-block; /* Делает элемент блочным только для содержимого */
+        font-family: 'Montserrat', sans-serif; /* Устанавливаем шрифт Montserrat с запасным шрифтом sans-serif */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 700; /* Устанавливаем жирность шрифта на 700 */
+        font-size: 30px; /* Устанавливаем размер шрифта на 30 пикселей */
+        line-height: 38px; /* Устанавливаем высоту строки на 38 пикселей */
+        letter-spacing: 0.35538em; /* Устанавливаем межбуквенный интервал на 0.35538em */
+        color: #0c0c0c; /* Устанавливаем цвет текста на черный */
+        box-sizing: border-box; /* Устанавливаем модель расчета размеров элемента, включая отступы и рамки */
+        border: 8px solid #000000; /* Устанавливаем границу толщиной 8 пикселей черного цвета */
+        padding: 40px 75px; /* Устанавливаем внутренние отступы: 40 пикселей сверху и снизу, 75 пикселей слева и справа */
+    }
+
+    /*Кнопка */
+    .button-style {
+        display: inline-block; /* Делает элемент блочным с возможностью задавать отступы и ширину */
+        padding: 10px 20px; /* Внутренние отступы кнопки: 10 пикселей сверху и снизу, 20 пикселей слева и справа */
+        text-decoration: none; /* Убирает подчеркивание текста */
+        font-family: 'Montserrat', sans-serif; /* Устанавливаем шрифт Montserrat с запасным шрифтом sans-serif */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 600; /* Устанавливаем жирность шрифта на 600 */
+        font-size: 15px; /* Устанавливаем размер шрифта на 15 пикселей */
+        line-height: 18px; /* Устанавливаем высоту строки на 18 пикселей */
+        color: #000000; /* Устанавливаем цвет текста на черный */
+        border-right: 2px solid #000000; /* Устанавливаем правую границу толщиной 2 пикселя черного цвета */
+        border-left: 2px solid #000000; /* Устанавливаем левую границу толщиной 2 пикселя черного цвета */
+    }
+
+
+    header {
+        display: flex; /* Устанавливаем элемент как flex-контейнер для использования flexbox */
+        justify-content: flex-end; /* Выравнивание содержимого по правому краю */
+        align-items: center; /* Выравнивание содержимого по центру по вертикали */
+        width: 100%; /* Устанавливаем ширину элемента на 100% */
+        height: 66px; /* Устанавливаем высоту элемента на 66 пикселей */
+        background-color: #0B0B0B; /* Устанавливаем цвет фона элемента */
+        position: fixed; /* Фиксируем элемент на экране */
+        top: 0; /* Устанавливаем элемент у верхнего края экрана */
+        left: 0; /* Устанавливаем элемент у левого края экрана */
+        z-index: 1000; /* При необходимости измените z-index для правильного наложения элементов */
+    }
+
+    header .mob-see,
+    header .menu-toggle-label {
+        display: none; /* Скрыть элементы .menu-home и .menu-toggle-label внутри <header> */
+    }
+
+
+    header .menu-flyout {
+        display: flex; /* Устанавливаем элемент как flex-контейнер для использования flexbox */
+        justify-content: flex-end; /* Выравнивание содержимого по правому краю */
+        align-items: center; /* Выравнивание по центру по вертикали */
+    }
+
+    header .menu-main {
+        margin-right: 70px; /* Отступ справа 70 пикселей */
+        font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+        font-style: normal; /* Обычный стиль */
+        font-weight: 700; /* Полужирный */
+        font-size: 15px; /* Размер шрифта 15 пикселей */
+        line-height: 18px; /* Межстрочный интервал 18 пикселей */
+        text-align: center; /* Выравнивание по центру */
+    }
+
+    header .menu-main a {
+        display: inline-block; /* Делаем ссылки блочными элементами для применения отступов и падингов */
+        padding: 10px; /* Паддинг сверху и снизу 20 пикселей, слева и справа 5 пикселей */
+        margin-right: 30px; /* Отступ справа 30 пикселей */
+        color: #FFFFFF; /* Цвет текста кнопки (белый) */
+        text-decoration: none; /* Убираем подчеркивание ссылок */
+        transition: color 0.3s; /* Анимация изменения цвета при наведении */
+    }
+
+
+    .menu-main a:hover {
+        color: #c37b7b; /* Цвет текста при наведении мыши */
+        background-color: #615c5c; /* Устанавливаем цвет фона элемента */
+        border-radius: 46px; /* Закругляем углы элемента с радиусом 46 пикселей */
+    }
+
+    #contact-me {
+        display: inline-block; /* Устанавливаем блочно-строчный элемент, который занимает только необходимую ширину */
+        padding: 10px; /* Устанавливаем внутренние отступы вокруг содержимого элемента */
+        border-radius: 46px; /* Закругляем углы элемента с радиусом 46 пикселей */
+        background-color: #FFFFFF; /* Устанавливаем белый цвет фона элемента */
+        color: #000000; /* Устанавливаем черный цвет текста элемента */
+        text-decoration: none; /* Убираем подчеркивание текста */
+        border: none; /* Убираем рамку вокруг элемента */
+        transition: box-shadow 0.3s, transform 0.3s; /* Анимация для тени и изменения размера */
+    }
+
+    #contact-me:hover {
+        background-color: #213c1f; /* Цвет текста при наведении мыши */
+        color: #FFFFFFFF; /* Устанавливаем цвет текста в виде шестнадцатеричного кода с прозрачностью (Alpha) */
+        box-shadow: 0 0 10px rgba(244, 244, 244, 0.5); /* Серая тень при наведении */
+    }
+
+    #contact-me:active {
+        transform: scale(0.95); /* Уменьшение размера при нажатии */
+    }
+
+    header .flag {
+        margin-right: 35px; /* Отступ справа 35 пикселей */
+        width: 55px;
+    }
+
+    /* 1 болок представление */
+    #preview {
+        background-image: linear-gradient(to right, #D7D7D7 50%, #000000 50%); /* добовление цвета для заднего фона*/
+        margin-bottom: 142px;
+    }
+
+    .container {
+        width: 100%; /* Задаем ширину 100% по умолчанию */
+        max-width: 1200px; /* Максимальная ширина для десктопа */
+        margin: 0 auto; /* Автоматическое выравнивание по центру */
+    }
+
+
+    #preview .prev {
+        background-image: url('../pic/entrepreneur.png'); /* Устанавливает задний фон изображением entrepreneur.png */
+        background-size: cover; /* Растягивает изображение, чтобы оно покрывало весь блок */
+        background-position: center; /* Выравнивает изображение по центру блока */
+        background-repeat: no-repeat; /* Запрещает повторять изображение */
+        display: flex; /* Устанавливает элемент как flex-контейнер для использования flexbox */
+        height: 1022px; /* Устанавливает высоту блока на 1022 пикселя */
+        width: 100%; /* Устанавливает ширину блока на 100% */
+    }
+
+    #preview .name-prev {
+        padding-left: 154px; /* Добавляет отступ слева на 154 пикселя */
+        padding-top: 351px; /* Добавляет отступ сверху на 351 пиксель */
+    }
+
+    #preview .name-prev .name {
+        font-family: 'Raleway', sans-serif; /* Использует шрифт Raleway */
+        font-style: normal; /* Нормальный стиль шрифта */
+        font-weight: 700; /* Жирный (700) вес шрифта */
+        font-size: 40px; /* Размер шрифта 40 пикселей */
+        line-height: 47px; /* Высота строки 47 пикселей */
+        color: #000000; /* Черный цвет текста */
+        text-align: left; /* Выравнивание текста по левому краю */
+    }
+
+    #preview .name-prev .name span {
+        font-size: 80px; /* Размер шрифта 80 пикселей */
+        line-height: 94px; /* Высота строки 94 пикселя */
+        color: #000000; /* Черный цвет текста */
+        padding-left: 70px; /* Отступ слева от текста */
+    }
+
+    #preview .name-prev .prof-prev {
+        font-family: 'Raleway', sans-serif; /* Использует шрифт Raleway */
+        font-style: normal; /* Нормальный стиль шрифта */
+        font-weight: 400; /* Нормальный (400) вес шрифта */
+        font-size: 25px; /* Размер шрифта 25 пикселей */
+        line-height: 29px; /* Высота строки 29 пикселей */
+        text-align: center; /* Выравнивание текста по центру */
+        color: #919191; /* Цвет текста серый (#919191) */
+        margin-bottom: 137px; /* Отступ снизу от текста */
+    }
+
+
+    #preview .name-prev .soc-prev img {
+        background: #C4C4C4; /* Задний фон изображения серый (#C4C4C4) */
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); /* Тень изображения */
+        margin-left: 31px; /* Отступ слева от изображения */
+        padding: 10px; /* Внутренние отступы изображения */
+    }
+
+
+    /*	блок наставника */
+    #preview .tutor-prev {
+        min-height: 313px; /* Установка минимальной высоты блока на 313 пикселей */
+        background-color: #1D1D1D; /* Установка цвета фона блока */
+        display: flex; /* Устанавливаем блок как flex-контейнер */
+        justify-content: space-between; /* Распределение элементов с пробелами между ними */
+        align-items: center; /* Выравнивание элементов по центру по вертикали */
+        overflow: hidden; /* Скрытие элементов, выходящих за границы контейнера */
+        position: relative; /* Установка позиции как относительной для дополнительного контроля */
+    }
+
+    #preview .tutor-prev .tutor-prev-text {
+        flex: 1; /* Элемент растягивается на доступное пространство */
+        padding: 20px; /* Добавляем отступы внутри элемента */
+    }
+
+    #preview .tutor-prev .tutor-prev-logo {
+        height: auto; /* Сохраняем пропорции логотипа */
+        margin-left: 20px; /* Добавляем отступ слева от логотипа */
+    }
+
+    #preview .tutor-prev h2 {
+        font-family: 'Montserrat', sans-serif; /* Используем шрифт Montserrat */
+        text-transform: uppercase; /* Преобразуем текст в заглавные буквы */
+        font-style: normal; /* Устанавливаем обычное начертание */
+        font-weight: 700; /* Устанавливаем полужирное начертание */
+        font-size: 30px; /* Устанавливаем размер шрифта 30 пикселей */
+        line-height: 37px; /* Устанавливаем высоту строки 37 пикселей */
+        letter-spacing: 0.18538em; /* Устанавливаем межбуквенный интервал */
+        color: #FFFFFF; /* Устанавливаем цвет текста белым */
+        margin-bottom: 33px; /* Устанавливаем нижний отступ 33 пикселя */
+        border: none; /* Удаляем границу у заголовка */
+        white-space: nowrap; /* Запрещаем перенос текста по словам */
+    }
+
+    #preview .tutor-prev p {
+        font-family: 'Open Sans', sans-serif; /* Используем шрифт Open Sans */
+        font-style: normal; /* Устанавливаем обычное начертание */
+        font-weight: 400; /* Устанавливаем нормальную толщину шрифта */
+        font-size: 15px; /* Устанавливаем размер шрифта 15 пикселей */
+        line-height: 138.68%; /* Устанавливаем межстрочный интервал */
+        text-align: justify; /* Устанавливаем выравнивание по ширине */
+        color: #FFFFFF; /* Устанавливаем цвет текста белым */
+        margin-bottom: 52px; /* Устанавливаем нижний отступ 52 пикселя */
+    }
+
+
+    /* кнопка READ MORE*/
+    #preview .tutor-prev a {
+        display: inline-block; /* Делает элемент блочным с возможностью задавать отступы и ширину */
+        padding: 10px 20px; /* Внутренние отступы кнопки */
+        text-decoration: none; /* Убирает подчеркивание */
+        font-family: 'Montserrat', sans-serif; /* Используем шрифт Montserrat */
+        font-style: normal; /* Устанавливаем обычное начертание */
+        font-weight: 600; /* Устанавливаем толщину шрифта 600 */
+        font-size: 15px; /* Устанавливаем размер шрифта 15 пикселей */
+        line-height: 18px; /* Устанавливаем высоту строки 18 пикселей */
+        color: #FFFFFF; /* Устанавливаем цвет текста белым */
+        border-right: 2px solid #FFFFFF; /* Добавляем правую границу */
+        border-left: 2px solid #FFFFFF; /* Добавляем левую границу */
+    }
+
+    /* при наведении на кнопку READ MORE*/
+    #preview .tutor-prev a:hover {
+        background-color: #FFFFFF; /* Задает белый фон при наведении */
+        color: #000000; /* Меняет цвет текста при наведении */
+    }
+
+    /* 	2 болок about-me */
+    #about-me .container {
+        display: flex; /* Устанавливаем контейнер как flex-контейнер */
+        flex-direction: column; /* Устанавливаем направление главной оси как столбец */
+        align-items: center; /* Центрируем элементы по вертикали */
+    }
+
+    /*	Заголовок */
+    #about-me h2 {
+
+        margin-bottom: 22px; /* Добавляем отступ внизу заголовка */
+    }
+
+    /* текст */
+    #about-me p {
+        font-family: 'Open Sans', sans-serif; /* Используем шрифт Open Sans */
+        font-style: normal; /* Обычный стиль текста */
+        font-weight: 300; /* Тонкий вес шрифта */
+        font-size: 15px; /* Размер шрифта 15 пикселей */
+        line-height: 20px; /* Высота строки 20 пикселей */
+        text-align: center; /* Выравниваем текст по центру */
+        color: #000000; /* Черный цвет текста */
+        margin-bottom: 24px; /* Отступ снизу */
+    }
+
+
+    /* второй параграф, так не рекомендуется делать, так как у нас все может быть верска динамическая (задем айдишник) это сделано для примера*/
+    #about-me p:nth-child(3) {
+        margin-bottom: 77px; /* Увеличиваем отступ снизу для третьего элемента */
+    }
+
+    /* кнопка */
+    #about-me .button-style {
+        margin-bottom: 51px; /* Устанавливаем отступ снизу для кнопки */
+    }
+
+
+    /*	Разделитель */
+    #about-me .divider {
+        margin-bottom: 110px; /* Устанавливаем отступ снизу для разделителя */
+    }
+
+    /* Професии - описание  */
+    #about-me .label-prof {
+        display: flex; /* Устанавливаем элемент как flex-контейнер */
+        margin-bottom: 20px; /* Устанавливаем отступ снизу */
+    }
+
+
+    /* Блок с текстом */
+    #about-me .label-prof div,
+    #maintenance {
+        padding-left: 80px; /* Устанавливаем внутренний отступ слева */
+        display: inline-block; /* Делаем элемент блочным */
+        background-size: 50px 50px; /* Устанавливаем размер фонового изображения */
+        background-position: 50px top; /* Размещаем изображение в левом верхнем углу */
+        background-repeat: no-repeat; /* Запрещаем повторение изображения */
+    }
+
+
+    #about-me .label-prof #tutor {
+        background-image: url('../pic/logo-so/tutor.png'); /* Устанавливаем фоновое изображение */
+    }
+
+
+    #about-me .label-prof #development {
+        background-image: url('../pic/logo-so/DEVELOPMENT.png'); /* Устанавливаем фоновое изображение для профессии "Development" */
+    }
+
+    #about-me #maintenance {
+        background-image: url('../pic/logo-so/MAINTENANCE.png'); /* Устанавливаем фоновое изображение для "Maintenance" */
+        margin-bottom: 140px; /* Устанавливаем нижний отступ для "Maintenance" */
+    }
+
+    /* Стили для заголовка "About Me" */
+    #about-me .about-h3 {
+        font-family: 'Montserrat', sans-serif; /* Устанавливаем шрифт */
+        font-style: normal; /* Обычный стиль шрифта */
+        font-weight: 700; /* Жирный шрифт */
+        font-size: 30px; /* Размер шрифта */
+        line-height: 37px; /* Межстрочный интервал */
+        display: flex; /* Устанавливаем элемент как flex-контейнер для использования flexbox */
+        align-items: center; /* Выравнивание по центру по вертикали */
+        text-align: center; /* Выравнивание текста по центру */
+        letter-spacing: 0.18538em; /* Межбуквенное расстояние */
+        font-variant: all-small-caps; /* Преобразует все буквы в заглавные */
+        color: #000000; /* Цвет текста */
+        padding: 10px 0; /* Внутренние отступы сверху и снизу */
+    }
+
+    /* Стили для параграфа "About Me" */
+    #about-me .about-p {
+        font-family: 'Open Sans', sans-serif; /* Устанавливаем шрифт */
+        font-style: normal; /* Обычный стиль шрифта */
+        font-weight: 300; /* Тонкий шрифт */
+        font-size: 14px; /* Размер шрифта */
+        line-height: 19px; /* Межстрочный интервал */
+        text-align: justify; /* Выравнивание текста по ширине */
+        color: #000000; /* Цвет текста */
+    }
+
+    /* Стили для разделителя внизу */
+    #about-me .divider {
+        margin-bottom: 120px; /* Устанавливаем нижний отступ для разделителя */
+    }
+
+
+    /* 	3 болок skills */
+    /* 	отступ всего блока до следуюшего блока */
+    #skills {
+        margin-bottom: 86px; /* 	внизу отступ 162 а .skills-row имеет  76, значит мы 162-76=86 */
+    }
+
+    /*дописываем для нашего контенера */
+    #skills .container {
+        display: flex; /* Устанавливаем контейнер как flex-контейнер */
+        flex-direction: column; /* Устанавливаем направление элементов в колонку */
+        align-items: center; /* Выравниваем элементы по центру по горизонтали */
+    }
+
+    /* Название самого блока */
+    #skills h2 {
+        margin-bottom: 80px; /* Устанавливаем отступ снизу */
+        text-align: center; /* Выравниваем текст по центру */
+    }
+
+    /* заголовок */
+    #skills h3 {
+        font-family: 'Montserrat', sans-serif; /* Устанавливаем шрифт Montserrat */
+        font-style: normal; /* Обычный стиль текста */
+        font-weight: 700; /* Жирный шрифт */
+        font-size: 30px; /* Размер шрифта 30 пикселей */
+        line-height: 37px; /* Высота строки 37 пикселей */
+        letter-spacing: 0.18538em; /* Межбуквенное расстояние */
+        color: #000000; /* Черный цвет текста */
+        align-self: flex-start; /* Выровнять по левому краю */
+        margin-bottom: 93px; /* Отступ снизу 93 пикселя */
+        width: 100%; /* Ширина элемента на 100% */
+        padding-left: 80px; /* Добавить отступ слева */
+    }
+
+    /* рядок */
+    #skills .skills-row {
+        display: flex; /* Устанавливаем элемент как flex-контейнер */
+        justify-content: space-around; /* Распределение элементов по горизонтали с промежутками между ними */
+        flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+        width: 100%; /* Ширина элемента на 100% */
+        margin-bottom: 76px; /* Отступ снизу 76 пикселей */
+    }
+
+    /* блок с лгом и текстом */
+    #skills .skills-row figure {
+        margin: 0 15px; /* Отступы вокруг каждой фигуры */
+        text-align: center; /* Выравнивание текста по центру */
+        width: 190px; /* это в самом последним моменте написать, что бы было видно как исправить разнобой иконок */
+    }
+
+    /* лого */
+    #skills .skills-row img {
+        max-width: 100px; /* Максимальная ширина изображения */
+        height: auto; /* Автоматическое определение высоты элемента */
+        margin-bottom: 30px; /* Отступ снизу */
+    }
+
+    /* текст под логом */
+    #skills .skills-row figcaption {
+        font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+        font-style: normal; /* Обычный стиль шрифта */
+        font-weight: 400; /* Нормальная толщина шрифта */
+        font-size: 24px; /* Размер шрифта 24 пикселя */
+        line-height: 29px; /* Межстрочный интервал 29 пикселей */
+        text-align: center; /* Выравнивание текста по центру */
+        letter-spacing: 0.13538em; /* Межбуквенный интервал 0.13538em */
+        color: #000000; /* Цвет текста чёрный */
+    }
+
+    /* 	4 болок portfolio */
+    /* Общие стили для секции портфолио */
+    #portfolio {
+        background-color: #1A1A1A; /* Цвет фона секции */
+        margin-bottom: 140px; /* Отступ снизу 140 пикселей */
+    }
+
+    /* Стили для заголовка h2 */
+    #portfolio .portfolio-h2 {
+        background-image: url('../pic/background.png');
+        background-size: cover; /* Покрыть элемент фоновым изображением */
+        height: 300px; /* Высота */
+        display: flex; /* Используем flexbox */
+        justify-content: center; /* Горизонтальное центрирование */
+        align-items: center; /* Вертикальное центрирование */
+        text-align: center; /* Выравнивание текста по центру */
+    }
+
+    /* Стили для основного контейнера портфолио */
+    #portfolio .portfolio-main {
+        background-color: #1A1A1A; /* Фон для контейнера */
+    }
+
+    #portfolio .portfolio-menu {
+        margin: 50px auto; /* Отступы сверху и снизу по 50px, по бокам авто */
+        display: flex; /* Используем flexbox */
+        justify-content: center; /* Центрируем содержимое */
+    }
+
+    #portfolio .portfolio-menu a {
+        font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat или его альтернатива без засечек */
+        font-weight: 600; /* Плотный начертание шрифта */
+        font-size: 14px; /* Размер шрифта 14 пикселей */
+        line-height: 17px; /* Высота строки 17 пикселей */
+        color: #7C7C7C; /* Цвет текста серый */
+        padding: 10px 150px; /* Внутренние отступы сверху и снизу 10 пикселей, слева и справа 150 пикселей */
+        border-bottom: 1px solid #AAAAAA; /* Горизонтальная линия снизу толщиной 1 пиксель и цветом серый */
+        text-decoration: none;
+    }
+
+    /* Выбор элемента по первому обьект */
+    /*#portfolio .portfolio-menu a:first-child {*/
+    /*    color: #FFFBFB; !* Устанавливаем цвет текста *!*/
+    /*    border-bottom: 1px solid #FFFFFF; !* Добавляем нижнюю границу *!*/
+    /*}*/
+    /* Активная кнопка будет подсвечиватся  */
+    #portfolio .portfolio-menu .activ {
+        color: #FFFBFB; /* Устанавливаем цвет текста */
+        border-bottom: 1px solid #FFFFFF; /* Добавляем нижнюю границу */
+    }
+
+    /* Стили для проектов портфолио */
+    #portfolio .portfolio-project {
+        display: grid; /* Используем сетку для размещения элементов */
+        grid-template-columns: repeat(auto-fill, minmax(540px, 1fr)); /* Динамическое выравнивание с помошью сетки */
+    }
+
+    #portfolio .portfolio-project a {
+        display: block; /* Устанавливаем элемент как блочный */
+    }
+
+    #portfolio .portfolio-project img {
+        width: 100%; /* Устанавливаем ширину на 100% */
+        height: auto; /* Автоматически определяем высоту */
+        display: block; /* Устанавливаем элемент как блочный */
+    }
+
+
+    /* Стили для абзацев потом тут добавить #portfolio для примера что делать если упустил и пешает этот тег дальше работать */
+    #portfolio p {
+        margin: 0 auto; /* Отступы сверху и снизу по 25px, по бокам авто */
+        padding: 25px;
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+    }
+
+
+    /* 	5 болок CONTACT */
+    /* Общие стили для секции контактов */
+    #contact {
+        padding: 50px 0; /* Отступы сверху и снизу */
+    }
+
+    /* Стили для контейнера */
+    #contact .container {
+        display: flex; /* Используем flexbox */
+        flex-direction: column; /* Размещаем элементы в колонку */
+        align-items: center; /* Центрируем элементы по горизонтали */
+    }
+
+    #contact h2 {
+        margin-bottom: 25px; /* Отступ снизу */
+    }
+
+    /* Стили для абзацев */
+    #contact p {
+        font-family: 'Open Sans', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 138.68%; /* Или 21px */
+        text-align: center;
+        color: #000000;
+        max-width: 800px; /* Максимальная ширина */
+        margin-bottom: 25px; /* Отступ снизу */
+    }
+
+    #contact .divider {
+        margin-bottom: 120px; /* Отступ снизу */
+    }
+
+    /* Стили для формы */
+    #contact form {
+        display: flex; /* Используем flexbox */
+        flex-direction: column; /* Размещаем элементы в колонку */
+        align-items: center; /* Центрируем элементы по горизонтали */
+        width: 100%; /* Ширина формы */
+        max-width: 600px; /* Максимальная ширина формы */
+
+    }
+
+    /* Стили для полей ввода и textarea */
+    #contact form input[type="text"],
+    #contact form input[type="email"],
+    #contact form input[type="tel"],
+    #contact form textarea {
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.04em;
+        color: #8B8B8B; /* Цвет текста плейсхолдера */
+        width: 100%; /* Ширина полей ввода */
+        margin-bottom: 50px; /* Отступ снизу */
+        padding: 10px; /* Внутренние отступы */
+        border: none; /* Граница полей ввода */
+        background-color: transparent;
+        box-sizing: border-box; /* Включаем границы и отступы в размеры */
+        border-left: 5px solid #000000; /* Левая граница */
+        border-bottom: 5px solid #000000; /* Нижняя граница */
+    }
+
+    /* Стили для полей ввода и textarea при фокусе */
+    #contact form input[type="text"]:focus,
+    #contact form input[type="email"]:focus,
+    #contact form input[type="tel"]:focus,
+    #contact form textarea:focus {
+        border: 1px dashed #000; /* Граница при фокусе */
+        outline: none; /* Убираем стандартный outline */
+    }
+
+    /* Стили для кнопки отправки */
+    #contact form button[type="submit"] {
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000; /* Цвет текста */
+        padding: 10px 20px; /* Внутренние отступы */
+        background: transparent; /* Прозрачный фон */
+        border: none; /* Убераем границы */
+        border-left: 2px solid #000; /* Левая граница */
+        border-right: 2px solid #000; /* Правая граница */
+        cursor: pointer; /* Указатель курсора, показать как его можно поменить на все что хочешь */
+        transition: background 0.3s, color 0.3s; /* Анимация изменения фона и цвета */
+    }
+
+    /* Стили для кнопки отправки при наведении */
+    #contact form button[type="submit"]:hover {
+        background: #000; /* Фон при наведении */
+        color: #fff; /* Цвет текста при наведении */
+    }
+
+    /*	footer */
+    footer {
+        background-color: #000000; /* Черный цвет фона */
+        padding: 70px 0; /* Внутренние отступы сверху и снизу */
+        display: flex; /* Используем Flexbox */
+        flex-direction: column; /* Размещаем элементы в колонку */
+        align-items: center; /* Центрируем элементы по горизонтали */
+        text-align: center; /* Выравниваем текст по центру */
+        color: #FFFFFF; /* Белый цвет текста */
+    }
+
+    footer #up {
+        display: flex; /* Используем Flexbox */
+        flex-direction: column; /* Размещаем картинку и текст в колонку */
+        align-items: center; /* Центрируем элементы по горизонтали */
+        text-decoration: none; /* Убираем подчеркивание ссылки */
+        color: #FFFFFF; /* Белый цвет текста */
+        margin-bottom: 45px; /* Отступ снизу */
+    }
+
+    footer #up img {
+        margin-bottom: 10px; /* Отступ снизу у картинки */
+    }
+
+    footer .soc-prev {
+        display: flex; /* Используем Flexbox */
+        justify-content: center; /* Центрируем элементы по горизонтали */
+        margin-bottom: 45px; /* Отступ снизу */
+    }
+
+    footer .soc-prev a {
+        margin: 0 10px; /* Отступы между иконками */
+    }
+
+    footer p {
+        margin: 0; /* Убираем отступы у абзаца */
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 25px;
+        color: #FFFFFF;
+        padding: 0; /* Убираем нутрений отступы у абзаца, который был дан где то выше */
+    }
+
+    footer small {
+        font-weight: 400;
+    }
+}
+/* === планшетная версия === */
+
+
+/* === Мобильная версия === */
+@media (max-width: 767px) {
+    /*задний фон */
+    body {
+        background: radial-gradient(50% 50% at 50% 50%, rgba(26, 21, 21, 0) 0%, rgba(1, 1, 1, 0.16) 100%), #FFFFFF;
+        mix-blend-mode: normal;
+    }
+
+    /*делаем отступы по бокам */
+    .container {
+        padding: 0 45px;
+    }
+
+    /* работаем с хедером чорная полоска */
+    header {
+        display: flex; /* Устанавливаем флекс-контейнер для элементов */
+        align-items: center; /* Выравниваем элементы по центру по вертикали */
+        height: 60px; /* Устанавливаем высоту контейнера в 60 пикселей */
+        width: 100%; /* Устанавливаем ширину контейнера на 100% ширины экрана */
+        background-color: #0B0B0B; /* Устанавливаем цвет фона контейнера */
+        position: fixed; /* Фиксируем контейнер в позиции на экране */
+        top: 0; /* Выравниваем контейнер по верхнему краю экрана */
+        left: 0; /* Выравниваем контейнер по левому краю экрана */
+        z-index: 1000; /* При необходимости измените z-index для правильного наложения элементов */
+    }
+    /*Где есть этот клас мы нечего не отображаем */
+    .mob-see {
+        display: none; /* Скрываем элементы, которые видим только на мобильных устройствах */
+    }
+
+    /*обшай стиль для темы h2*/
+    h2 {
+        display: inline-block; /* Делает элемент блочным только для содержимого */
+        font-family: 'Montserrat', sans-serif; /* Устанавливаем шрифт Montserrat с запасным шрифтом sans-serif */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 700; /* Устанавливаем жирность шрифта на 700 */
+        font-size: 14px; /* Устанавливаем размер шрифта */
+        line-height: 127.9%;/* Устанавливаем высоту строки на 38 пикселей */
+        letter-spacing: 0.43538em; /* Устанавливаем межбуквенный интервал на 0.35538em */
+        color: #000000; /* Устанавливаем цвет текста на черный */
+        box-sizing: border-box; /* Устанавливаем модель расчета размеров элемента, включая отступы и рамки */
+        border: 8px solid #000000; /* Устанавливаем границу толщиной 8 пикселей черного цвета */
+        padding: 20px 35px; /* Устанавливаем внутренние отступы: 40 пикселей сверху и снизу, 75 пикселей слева и справа */
+    }
+
+    /*Кнопка */
+    .button-style {
+        display: inline-block; /* Делает элемент блочным с возможностью задавать отступы и ширину */
+        padding: 10px 20px; /* Внутренние отступы кнопки: 10 пикселей сверху и снизу, 20 пикселей слева и справа */
+        text-decoration: none; /* Убирает подчеркивание текста */
+        font-family: 'Montserrat', sans-serif; /* Устанавливаем шрифт Montserrat с запасным шрифтом sans-serif */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 600; /* Устанавливаем жирность шрифта на 600 */
+        font-size: 15px; /* Устанавливаем размер шрифта на 15 пикселей */
+        line-height: 18px; /* Устанавливаем высоту строки на 18 пикселей */
+        color: #000000; /* Устанавливаем цвет текста на черный */
+        border-right: 2px solid #000000; /* Устанавливаем правую границу толщиной 2 пикселя черного цвета */
+        border-left: 2px solid #000000; /* Устанавливаем левую границу толщиной 2 пикселя черного цвета */
+    }
+
+    header a,
+    header label
+    {
+        display: inline-block; /* Устанавливаем элемент как блочный, но без разрыва строки */
+        margin: 0 10px; /* Устанавливаем отступы по горизонтали 0 сверху и снизу, 10px слева и справа */
+    }
+
+    /* Устанавливаем размер ярлыков*/
+    .logo {
+        width: 50px; /* Устанавливаем ширину элемента  */
+        height: 50px; /* Устанавливаем высоту элемента */
+    }
+
+    .close-toggle {
+        width: 30px; /* Устанавливаем ширину элемента  */
+        height: 30px; /* Устанавливаем высоту элемента */
+    }
+
+
+    .menu-toggle-label {
+        display: flex; /* Устанавливаем элементу flex-контейнер */
+        align-items: center; /* Выравниваем элементы по центру по вертикали */
+        cursor: pointer; /* Устанавливаем курсор в виде указателя */
+        margin-right: 10px; /* Устанавливаем отступ справа 10 пикселей */
+
+    }
+    /* менюшка выпадаюшая */
+    .menu-flyout {
+        display: none; /* Начально скрываем меню */
+        position: absolute; /* Абсолютное позиционирование */
+        top: 100%; /* Располагаем меню сразу под родительским элементом */
+        left: 0;  /* с лева рядом к экрану */
+        width: 100%; /* занимаемая ширина в весь блок */
+        background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный темный фон */
+        box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1); /* Серая тень снизу */
+        z-index: 1000; /* Устанавливаем z-index для правильного наложения элементов */
+        text-align: center; /* Центрируем текст внутри меню */
+
+    }
+
+    .menu-flyout.open {
+        display: block; /* Показываем меню при открытии */
+    }
+
+    .menu-flyout .menu-main {
+        display: flex; /* Устанавливаем элементу flex-контейнер */
+        flex-direction: column; /* Располагаем элементы списка вертикально */
+    }
+
+    .menu-flyout .menu-main a {
+        display: block; /* Отображаем меню при открытии */
+        padding: 10px 0; /* Отступы вокруг элементов списка */
+        color: #fff; /* Цвет текста */
+        text-decoration: none; /* Убираем подчеркивание */
+    }
+
+    .menu-flyout .menu-main a:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Цвет фона при наведении */
+    }
+
+    /* Стили для кнопки "CONTACT ME" */
+    #contact-me {
+        background-color: #fff; /* Белая заливка */
+        color: #000; /* Черный текст */
+        border: none;  /* Убираем границу */
+        padding: 10px 20px; /* Отступы вокруг текста */
+        margin: 10px 0; /* Отступы сверху и снизу */
+        cursor: pointer; /* Курсор указателя */
+        text-transform: uppercase; /* Преобразование текста в верхний регистр */
+    }
+
+    #contact-me:hover {
+        background-color: #acb6b3; /* Светлый фон при наведении */
+        color: #000; /* Черный текст при наведении */
+    }
+
+    /* скрываем нижний флаг  */
+    .menu-flyout .flag {
+        display: none;  /* Скрываем элементы, которые видим только на мобильных устройствах */
+    }
+
+    /* 1 болок*/
+    /* скрываем декстопную версию в мобилке */
+    #preview {
+        display: none;
+    }
+
+
+    /*Первая карусель */
+    .first {
+        height: 757px;
+        display: flex; /* Размещение элементов внутри блока в ряд */
+        justify-content: center; /* Выравнивание по центру по горизонтали */
+        align-items: center; /* Выравнивание по центру по вертикали */
+        flex-direction: column; /* Расположение элементов в столбец */
+        background-image: url('../pic/background-mob.png'); /* Replace 'path_to_your_image.jpg' with the actual path to your background image */
+        background-size: contain;  /* Устанавливаем размер фонового изображения */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the background image from repeating */
+        position: relative; /* Sets the position to relative */
+        padding: 20px; /* Внутренний отступ блока */
+    }
+
+    .first::before {
+        background: radial-gradient(circle, rgba(19, 19, 19, 0.2) 0%, rgba(19, 19, 19, 0.8) 100%); /* Устанавливаем радиальный градиент фона */
+    }
+
+
+    /*текст */
+    .first .name {
+        font-family: 'Advent Pro'; /* Устанавливаем шрифт Advent Pro */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 400; /* Устанавливаем толщину шрифта 400 */
+        font-size: 25px; /* Устанавливаем размер шрифта 25px */
+        line-height: 30px; /* Устанавливаем высоту строки 30px */
+        text-align: center; /* Устанавливаем выравнивание текста по центру */
+        color: #FFFFFF; /* Устанавливаем цвет текста белый */
+    }
+
+    .first .prof-prev {
+        font-family: 'Montserrat'; /* Устанавливаем шрифт Montserrat */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 600; /* Устанавливаем толщину шрифта 600 */
+        font-size: 32px; /* Устанавливаем размер шрифта 32px */
+        line-height: 39px; /* Устанавливаем высоту строки 39px */
+        text-align: center; /* Устанавливаем выравнивание текста по центру */
+        color: #FFFFFF; /* Устанавливаем цвет текста белый */
+        margin-bottom: 14px; /* Устанавливаем нижний отступ 14px */
+    }
+
+    /* работа с дивайтером и осветление его*/
+    .first .divider {
+        display: block; /* Превращаем элемент в блочный, чтобы установить ширину и высоту */
+        margin: 0 auto; /* Выравниваем по центру по горизонтали */
+        filter: invert(100%); /* Инвертируем цвета элемента */
+        margin-bottom: 26px; /* Устанавливаем нижний отступ 26px */
+    }
+
+    /* соц сети */
+    .first .soc-prev {
+        display: flex;
+        justify-content: center; /* Выравнивание по центру по горизонтали */
+    }
+
+    .first .soc-prev a {
+        margin-right: 32px; /* Отступ справа для всех элементов */
+    }
+
+    .first .soc-prev a:last-child {
+        margin-right: 0; /* У последнего элемента убираем отступ справа */
+    }
+
+    /* Вторая карусель */
+    .prev-item.second {
+        height: 757px; /* Устанавливаем высоту элемента 757px */
+        display: flex; /* Устанавливаем flex-контейнер */
+        flex-direction: column; /* Расположение элементов в столбец */
+        background-color: #0B0B0B; /* Устанавливаем цвет фона */
+        background-image: url('../pic/man.png'); /* Устанавливаем фоновое изображение */
+        background-size: 600px 700px; /* Устанавливаем размер фонового изображения */
+        background-position: bottom left; /* Перемещаем изображение в нижний левый угол */
+        background-repeat: no-repeat; /* Отменяем повтор фонового изображения */
+        position: relative; /* Устанавливаем относительное позиционирование */
+    }
+
+    .second .name-prev {
+        display: flex;
+        justify-content: space-between; /* Выравниваем по центру по вертикали */
+        align-items: center; /* Выравниваем по центру по горизонтали */
+        position: absolute; /* Устанавливаем абсолютное позиционирование для блока name-prev */
+        bottom: 0; /* Помещаем блок внизу родительского блока */
+        background: rgba(0, 0, 0, 0.56); /* Цвет фона с прозрачностью 56% */
+        /*transform: rotate(-15deg); !* Поворот элемента на -102.12 градусов против часовой стрелки *!*/
+        height:215px;
+        width: 100%;
+    }
+
+    .second .text-prev {
+        text-align: center; /* Выравниваем текст по центру */
+        margin-bottom: 20px; /* Добавляем отступ снизу */
+    }
+
+    .second .name {
+        font-family: 'Raleway'; /* Устанавливаем шрифт Raleway */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 700; /* Устанавливаем толщину шрифта 700 */
+        font-size: 20px; /* Устанавливаем размер шрифта 20px */
+        line-height: 23px; /* Устанавливаем высоту строки 23px */
+        color: #FFFFFF; /* Устанавливаем цвет текста белый */
+    }
+
+    .second .name span {
+        font-size: 35px; /* Устанавливаем размер шрифта 35px */
+        line-height: 41px; /* Устанавливаем высоту строки 41px */
+
+        margin-left: 100px; /* Устанавливаем отступ слева 100px */
+    }
+
+    .second .prof-prev {
+        font-family: 'Raleway'; /* Устанавливаем шрифт Raleway */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 800; /* Устанавливаем толщину шрифта 800 */
+        font-size: 15px; /* Устанавливаем размер шрифта 15px */
+        line-height: 20px; /* Устанавливаем высоту строки 20px */
+        color: #FFFFFF; /* Устанавливаем цвет текста белый */
+        margin-left: 100px; /* Устанавливаем отступ слева 100px */
+    }
+
+    .second .soc-prev {
+        display: flex;
+        flex-direction: column; /* Располагаем элементы в столбец */
+        gap: 10px; /* Добавляем промежуток между иконками */
+        margin-right: 20px;
+    }
+
+
+    .second .soc-prev img {
+        width: 30px; /* Устанавливаем ширину иконок */
+
+    }
+
+    .tutor-prev {
+        padding: 50px;
+        background-color: #1D1D1D; /* Задний фон черного цвета */
+        display: flex; /* Устанавливаем flex-контейнер */
+        flex-direction: column; /* Направление элементов - колонка (вертикально) */
+        align-items: center; /* Вертикальное выравнивание по центру */
+        margin-bottom: 75px;
+    }
+
+    /* Блок с текстом */
+    .tutor-prev .tutor-prev-text{
+        display: flex; /* Устанавливаем flex-контейнер */
+        flex-direction: column; /* Направление элементов - колонка (вертикально) */
+        align-items: center; /* Вертикальное выравнивание по центру */
+        background-color: #1D1D1D; /* Задний фон черного цвета */
+        background-image: url('../pic/ITB.svg'); /* Путь к изображению */
+        background-position: center; /* Центрируем изображение */
+        background-repeat: no-repeat; /* Изображение не повторяется */
+        background-size: contain; /* Изображение занимает все доступное пространство, сохраняя пропорции */
+        height: 420px;
+        width: 100%; /* Ширина блока - вся ширина окна браузера */
+    }
+
+    /* заголовок */
+    .tutor-prev h2 {
+        font-family: 'Montserrat'; /* Устанавливаем шрифт Montserrat */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 700; /* Устанавливаем толщину шрифта 700 */
+        font-size: 25px; /* Устанавливаем размер шрифта 25px */
+        line-height: 30px; /* Устанавливаем высоту строки 30px */
+        display: flex; /* Устанавливаем flex-контейнер для заголовка */
+        align-items: center; /* Выравниваем элементы по центру по вертикали */
+        text-align: center; /* Устанавливаем выравнивание текста по центру */
+        letter-spacing: 0.18538em; /* Устанавливаем межбуквенное расстояние */
+        font-variant: all-small-caps; /* Устанавливаем все буквы маленькими капителями */
+        color: #FFFFFF; /* Устанавливаем цвет текста белый */
+        margin-bottom: 35px; /* Устанавливаем нижний отступ 35px */
+        border: none;  /* Убераем таблицу - потом добавим */
+    }
+
+    /* текст */
+    .tutor-prev p {
+        font-family: 'Open Sans'; /* Устанавливаем шрифт Open Sans */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 400; /* Устанавливаем толщину шрифта 400 */
+        font-size: 15px; /* Устанавливаем размер шрифта 15px */
+        line-height: 138.68%; /* Устанавливаем высоту строки в процентах */
+        text-align: justify; /* Устанавливаем выравнивание текста по ширине */
+        color: #FFFFFF; /* Устанавливаем цвет текста белый */
+    }
+
+    /* кнопка больше */
+    .tutor-prev .mob-more {
+        display: inline-block; /* Делает элемент блочным с возможностью задавать отступы и ширину */
+        padding: 10px 45px; /* Внутренние отступы кнопки */
+        font-family: 'Montserrat'; /* Устанавливаем шрифт Montserrat */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 600; /* Устанавливаем толщину шрифта 600 */
+        font-size: 15px; /* Устанавливаем размер шрифта 15px */
+        line-height: 18px; /* Устанавливаем высоту строки 18px */
+        text-align: center; /* Устанавливаем выравнивание текста по центру */
+        color: #FFFFFF; /* Устанавливаем цвет текста белый */
+        text-decoration: none; /* Убираем подчеркивание текста */
+        border-right: 2px solid #FFFFFF; /* Устанавливаем правую границу */
+        border-left: 2px solid #FFFFFF; /* Устанавливаем левую границу */
+    }
+
+    /* то что надо убрать в мобильной версии */
+    .tutor-prev-logo, .tutor-prev-text a {
+        display: none; /* Скрываем элементы */
+    }
+
+    /* Блок 2 about-me */
+    #about-me .container {
+        display: flex; /* Устанавливаем flex-контейнер */
+        flex-direction: column; /* Расположение элементов в столбец */
+        align-items: center; /* Выравнивание элементов по центру */
+        text-align: center; /* Для выравнивания текста по центру */
+    }
+
+    /* заголовок h2 */
+    #about-me h2 {
+        margin-bottom: 20px; /* Устанавливаем нижний отступ 20px */
+    }
+
+    /* текст */
+    #about-me p {
+        font-family: 'Open Sans'; /* Устанавливаем шрифт Open Sans */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 300; /* Устанавливаем толщину шрифта 300 */
+        font-size: 12px; /* Устанавливаем размер шрифта 12px */
+        line-height: 16px; /* Устанавливаем высоту строки 16px */
+        text-align: justify; /* Устанавливаем выравнивание текста по ширине */
+        color: #000000; /* Устанавливаем цвет текста черный */
+        margin-top: 20px; /* Устанавливаем верхний отступ 20px */
+        /* если мы тут используем 20 пикселей то у h2 тоже отнимаем 20 пикселей что бы в сумме получилось 40 пикселей */
+    }
+
+    /* Дополнительные стили для кнопки */
+    #about-me .button-style {
+        margin: 65px 0; /* Устанавливаем отступы сверху и снизу по 65px */
+    }
+
+    #about-me .divider {
+        margin-bottom: 65px; /* Устанавливаем нижний отступ 65px */
+    }
+
+
+    /* Професии - описание  */
+    #about-me .label-prof {
+        display: flex; /* Устанавливаем элемент как flex-контейнер */
+        flex-direction: column;
+        align-items: center; /* Выравниваем элементы по центру по горизонтали */
+        margin-bottom: 20px; /* Устанавливаем отступ снизу */
+    }
+
+
+    /* Блок с текстом */
+    #about-me .label-prof div,
+    #maintenance {
+        padding-left: 30px; /* Устанавливаем внутренний отступ слева */
+        display: inline-block; /* Делаем элемент блочным */
+        background-size: 50px 50px; /* Устанавливаем размер фонового изображения */
+        background-position: 0 top; /* Размещаем изображение в левом верхнем углу */
+        background-repeat: no-repeat; /* Запрещаем повторение изображения */
+    }
+
+
+    #about-me .label-prof #tutor {
+        background-image: url('../pic/logo-so/tutor.png'); /* Устанавливаем фоновое изображение */
+    }
+
+
+    #about-me .label-prof #development {
+        background-image: url('../pic/logo-so/DEVELOPMENT.png'); /* Устанавливаем фоновое изображение для профессии "Development" */
+    }
+
+    #about-me #maintenance {
+        background-image: url('../pic/logo-so/MAINTENANCE.png'); /* Устанавливаем фоновое изображение для "Maintenance" */
+        margin-bottom: 30px; /* Устанавливаем нижний отступ для "Maintenance" с вычатом всех дополнительных отступов */
+    }
+
+    /* Стили для заголовка "About Me" */
+    #about-me .about-h3 {
+        font-family: 'Montserrat', sans-serif; /* Устанавливаем шрифт */
+        font-style: normal; /* Обычный стиль шрифта */
+        font-weight: 700; /* Жирный шрифт */
+        font-size: 30px; /* Размер шрифта */
+        line-height: 37px; /* Межстрочный интервал */
+        display: flex; /* Устанавливаем элемент как flex-контейнер для использования flexbox */
+        align-items: center; /* Выравнивание по центру по вертикали */
+        text-align: center; /* Выравнивание текста по центру */
+        letter-spacing: 0.18538em; /* Межбуквенное расстояние */
+        font-variant: all-small-caps; /* Преобразует все буквы в заглавные */
+        color: #000000; /* Цвет текста */
+        padding: 10px 0; /* Внутренние отступы сверху и снизу */
+    }
+
+    /* Стили для параграфа "About Me" */
+    #about-me .about-p {
+        font-family: 'Open Sans', sans-serif; /* Устанавливаем шрифт */
+        font-style: normal; /* Обычный стиль шрифта */
+        font-weight: 300; /* Тонкий шрифт */
+        font-size: 14px; /* Размер шрифта */
+        line-height: 19px; /* Межстрочный интервал */
+        text-align: justify; /* Выравнивание текста по ширине */
+        color: #000000; /* Цвет текста */
+        margin-bottom: 50px;
+    }
+
+    /* Блок 3 skills */
+    /* блок со значками */
+    #skills .container {
+        display: flex; /* Устанавливаем flex-контейнер */
+        flex-direction: column; /* Расположение элементов в столбец */
+        align-items: center; /* Центрируем элементы по горизонтали */
+        text-align: center; /* Центрируем текст внутри элементов figure */
+    }
+
+    /* оглавление */
+    #skills h2 {
+        margin-bottom: 50px; /* Устанавливаем нижний отступ 50px */
+        margin-top: 35px; /* Устанавливаем верхний отступ 35px */
+    }
+
+    /* название */
+    #skills h3 {
+        font-family: 'Montserrat'; /* Устанавливаем шрифт Montserrat */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 700; /* Устанавливаем толщину шрифта 700 */
+        font-size: 30px; /* Устанавливаем размер шрифта 30px */
+        line-height: 37px; /* Устанавливаем высоту строки 37px */
+        display: flex; /* Устанавливаем flex-контейнер для заголовка */
+        align-items: center; /* Центрируем элементы по вертикали */
+        letter-spacing: 0.18538em; /* Устанавливаем межбуквенное расстояние */
+        color: #000000; /* Устанавливаем цвет текста черный */
+        margin-bottom: 65px; /* Устанавливаем нижний отступ 65px */
+    }
+
+    /* блок с лого */
+    #skills figure {
+        margin: 0 15px; /* Добавляем отступы между элементами figure */
+        margin-bottom: 80px; /* Устанавливаем нижний отступ 80px */
+        font-family: 'Montserrat'; /* Устанавливаем шрифт Montserrat */
+        font-style: normal; /* Устанавливаем обычный стиль шрифта */
+        font-weight: 400; /* Устанавливаем толщину шрифта 400 */
+        font-size: 24px; /* Устанавливаем размер шрифта 24px */
+        line-height: 29px; /* Устанавливаем высоту строки 29px */
+        text-align: center; /* Центрируем текст */
+        letter-spacing: 0.13538em; /* Устанавливаем межбуквенное расстояние */
+        color: #000000; /* Устанавливаем цвет текста черный */
+    }
+
+    /* текст под лого */
+    #skills figcaption {
+        margin-top: 30px; /* Устанавливаем верхний отступ 30px */
+    }
+
+    /* кнопка more */
+    #skills .mob-first {
+        margin-bottom: 35px; /* Устанавливаем нижний отступ 35px */
+    }
+
+    /* убираем лишние блоки */
+    #skills .mob-none, #js-none {
+        display: none; /* Скрываем элементы */
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
