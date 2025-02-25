@@ -13,7 +13,7 @@ echo "=== Обновляем систему ==="
 sudo yum update -y
 
 echo "=== Устанавливаем необходимые пакеты ==="
-sudo yum install -y git httpd php php-cli php-json php-mbstring python3 python3-pip python3-virtualenv unzip curl
+sudo yum install -y git httpd php php-cli php-json php-mbstring python3 python3-pip python3-virtualenv unzip 
 
 # === Клонируем репозиторий ===
 if [ -d "$PROJECT_DIR" ]; then
