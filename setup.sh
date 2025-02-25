@@ -2,8 +2,15 @@
 
 set -e  # Останавливаем выполнение при ошибках
 
+# === Запуск от имени root ===
+if [ "$EUID" -ne 0 ]; then
+    echo "Запускаем скрипт с правами root..."
+    sudo -i bash "$0"
+    exit
+fi
+
 # === ПЕРЕМЕННЫЕ ===
-GIT_REPO="https://github.com/KarpuninP/lamp-telegram-deploy.git"  # Замени на свой репозиторий
+GIT_REPO="https://github.com/KarpuninP/lamp-telegram-deploy.git"
 PROJECT_DIR="/var/www/project"
 PUBLIC_DIR="$PROJECT_DIR/public"
 BOT_DIR="$PROJECT_DIR/bot"
@@ -13,24 +20,38 @@ echo "=== Обновляем систему ==="
 sudo yum update -y
 
 echo "=== Устанавливаем необходимые пакеты ==="
-sudo yum install -y git httpd php php-cli php-json php-mbstring python3 python3-pip python3-virtualenv unzip 
+sudo yum install -y git httpd php php-cli php-json php-mbstring python3 python3-pip python3-virtualenv unzip
 
-# === Клонируем репозиторий ===
+# === Проверяем, установлен ли Apache ===
+if systemctl is-active --quiet httpd; then
+    echo "Apache уже установлен и запущен. Пропускаем установку."
+else
+    echo "=== Устанавливаем и запускаем Apache ==="
+    sudo systemctl enable httpd
+    sudo systemctl start httpd
+fi
+
+# === Проверяем, существует ли проект ===
 if [ -d "$PROJECT_DIR" ]; then
     echo "Проект уже существует. Обновляем..."
-    cd "$PROJECT_DIR" && git pull
+    cd "$PROJECT_DIR" && git pull origin master
 else
     echo "Клонируем проект с GitHub..."
     sudo git clone "$GIT_REPO" "$PROJECT_DIR"
 fi
 
 # === Настраиваем права доступа ===
-echo "=== Настраиваем права ==="
+echo "=== Проверяем права доступа ==="
+sudo chown -R ec2-user:ec2-user "$PROJECT_DIR"
 sudo chmod -R 755 "$PROJECT_DIR"
-sudo chown -R apache:apache "$PROJECT_DIR"
 
-echo "=== Настраиваем Apache ==="
-sudo tee /etc/httpd/conf.d/project.conf > /dev/null <<EOL
+# === Проверяем, настроен ли Apache Virtual Host ===
+CONF_FILE="/etc/httpd/conf.d/project.conf"
+if [ -f "$CONF_FILE" ]; then
+    echo "Конфигурация Apache уже существует. Пропускаем настройку."
+else
+    echo "=== Настраиваем Apache Virtual Host ==="
+    sudo tee "$CONF_FILE" > /dev/null <<EOL
 <VirtualHost *:80>
     DocumentRoot "$PUBLIC_DIR"
     <Directory "$PUBLIC_DIR">
@@ -41,23 +62,30 @@ sudo tee /etc/httpd/conf.d/project.conf > /dev/null <<EOL
     CustomLog /var/log/httpd/project-access.log combined
 </VirtualHost>
 EOL
+    sudo systemctl restart httpd
+fi
 
-echo "=== Перезапускаем Apache ==="
-sudo systemctl restart httpd
-sudo systemctl enable httpd
-
-# === Устанавливаем зависимости для Python-бота ===
-echo "=== Устанавливаем зависимости Python ==="
-if [ ! -d "$PYTHON_VENV" ]; then
+# === Проверяем, создано ли виртуальное окружение для бота ===
+if [ -d "$PYTHON_VENV" ]; then
+    echo "Python venv уже существует. Пропускаем создание."
+else
+    echo "=== Создаем виртуальное окружение Python ==="
     python3 -m venv "$PYTHON_VENV"
 fi
+
+# === Активируем виртуальное окружение и устанавливаем зависимости ===
+echo "=== Устанавливаем зависимости Python ==="
 source "$PYTHON_VENV/bin/activate"
 pip install --upgrade pip
 pip install -r "$BOT_DIR/requirements.txt"
 
-# === Создаем systemd-сервис для Telegram-бота ===
-echo "=== Создаем systemd сервис для бота ==="
-sudo tee /etc/systemd/system/telegram-bot.service > /dev/null <<EOL
+# === Проверяем, существует ли systemd-сервис для бота ===
+SERVICE_FILE="/etc/systemd/system/telegram-bot.service"
+if [ -f "$SERVICE_FILE" ]; then
+    echo "Systemd-сервис для бота уже существует. Пропускаем настройку."
+else
+    echo "=== Создаем systemd-сервис для Telegram-бота ==="
+    sudo tee "$SERVICE_FILE" > /dev/null <<EOL
 [Unit]
 Description=Telegram Bot
 After=network.target
@@ -71,10 +99,11 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOL
+    sudo systemctl daemon-reload
+    sudo systemctl enable telegram-bot.service
+fi
 
-echo "=== Перезапускаем systemd и запускаем бота ==="
-sudo systemctl daemon-reload
-sudo systemctl enable telegram-bot.service
+echo "=== Запускаем Telegram-бот ==="
 sudo systemctl start telegram-bot.service
 
 echo "=== Установка завершена! Сайт работает, бот запущен. ==="
