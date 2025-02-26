@@ -1,6 +1,7 @@
 ```gitignore
 .idea/
 venv/
+public/assets/pic/user-bot/
 __pycache__/
 .DS_Store
 storage/*.json

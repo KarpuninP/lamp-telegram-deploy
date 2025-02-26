@@ -9,42 +9,79 @@ JSON_FILE = "../storage/data.json"
 bot = telebot.TeleBot(TOKEN)
 
 # Пути к файлам
+STORAGE_DIR = "/var/www/project/storage"
 DATA_FILE = "/var/www/project/storage/data.json"
 IMAGE_DIR = "/var/www/project/public/assets/pic/user-bot"
-#DATA_FILE = os.path.join(STORAGE_DIR, "data.json")
+# === Масив параметров сайта ===
+DEFAULT_DATA = {"user_id": None, "title": "", "image": "", "text": "", "footer": ""}
+
 
 # === Создаем папки, если их нет ===
-#os.makedirs(STORAGE_DIR, exist_ok=True)
+os.makedirs(STORAGE_DIR, exist_ok=True)
 os.makedirs(IMAGE_DIR, exist_ok=True)
 
 
+# === Проверяем и создаем data.json, если его нет ===
+if not os.path.exists(DATA_FILE):
+    print(f"🔹 Файл {DATA_FILE} не найден, создаем новый...")
+    with open(DATA_FILE, "w", encoding="utf-8") as file:
+        json.dump(DEFAULT_DATA, file, indent=4, ensure_ascii=False)
+
 # === Функция загрузки данных ===
 def load_data():
-    if not os.path.exists(DATA_FILE):
-        return {"title": "", "image": "", "text": "", "footer": ""}
-    with open(DATA_FILE, "r", encoding="utf-8") as file:
-        return json.load(file)
+    try:
+        with open(DATA_FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except Exception as e:
+        print(f"⚠ Ошибка при загрузке JSON: {e}")
+        return DEFAULT_DATA
 
 # === Функция сохранения данных ===
 def save_data(new_data):
-    with open(DATA_FILE, "w", encoding="utf-8") as file:
-        json.dump(new_data, file, indent=4, ensure_ascii=False)
+    try:
+        with open(DATA_FILE, "w", encoding="utf-8") as file:
+            json.dump(new_data, file, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print(f"⚠ Ошибка при сохранении JSON: {e}")
+
+# === Функция проверки владельца ===
+def is_owner(message):
+    data = load_data()
+    user_id = data.get("user_id")
+
+    # Если ID владельца не установлен — записываем первого пользователя
+    if user_id is None:
+        data["user_id"] = message.chat.id
+        save_data(data)
+        return True
+
+    # Проверяем, совпадает ли ID с владельцем
+    if user_id == message.chat.id:
+        return True
+    else:
+        bot.send_message(message.chat.id, "🚫 Вы не владелец сайта!")
+        return False
 
 
 # === Стартовая команда `/start` ===
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    if not is_owner(message):
+            return
+
     bot.send_message(
         message.chat.id,
         "👋 Здравствуйте! Я управляю вашим сайтом.\n\n"
         "Вы можете изменить заголовок, текст, изображение и футер сайта.\n\n"
-        "🔧 Чтобы запустить установщик, введите команду: `/setup`\n"
         "📜 Для списка команд по изменению данных введите: `/help`"
     )
 
 # === Команда `/help` ===
 @bot.message_handler(commands=['help'])
 def send_help(message):
+    if not is_owner(message):
+            return
+
     help_text = (
         "📜 *Список доступных команд:*\n\n"
         "🔧 *Изменение содержимого сайта:*\n"
@@ -59,44 +96,13 @@ def send_help(message):
 
     bot.send_message(message.chat.id, help_text, parse_mode="Markdown")
 
-# === Команда `/setup` для автоматической установки ===
-@bot.message_handler(commands=['setup'])
-def setup_site(message):
-    bot.send_message(message.chat.id, "🔄 Начинаем настройку сайта...\n")
-
-    # Загружаем текущие данные
-    data = load_data()
-
-    # Устанавливаем заголовок
-    data["title"] = "Мой новый сайт"
-    save_data(data)
-    bot.send_message(message.chat.id, "✅ Заголовок установлен: *Мой новый сайт*", parse_mode="Markdown")
-    time.sleep(1)
-
-    # Устанавливаем текст
-    data["text"] = "Добро пожаловать на обновленный сайт!"
-    save_data(data)
-    bot.send_message(message.chat.id, "✅ Текст обновлен!", parse_mode="Markdown")
-    time.sleep(1)
-
-    # Устанавливаем футер
-    data["footer"] = "© 2025 Все права защищены"
-    save_data(data)
-    bot.send_message(message.chat.id, "✅ Футер обновлен!", parse_mode="Markdown")
-    time.sleep(1)
-
-    # Устанавливаем изображение (по умолчанию)
-    default_image = "assets/pic/user-bot/default.jpg"
-    data["image"] = default_image
-    save_data(data)
-    bot.send_message(message.chat.id, f"✅ Изображение установлено по умолчанию:\n`{default_image}`", parse_mode="Markdown")
-
-    bot.send_message(message.chat.id, "🎉 Установка завершена! Проверьте сайт.")
-
 
 # === Команда `/title Новый заголовок` ===
 @bot.message_handler(commands=['title'])
 def set_title(message):
+    if not is_owner(message):
+            return
+
     new_title = message.text.replace("/title", "").strip()
     if not new_title:
         bot.reply_to(message, "⚠️ Используйте: `/title Новый заголовок`")
@@ -111,6 +117,9 @@ def set_title(message):
 # === Команда `/text Новый текст` ===
 @bot.message_handler(commands=['text'])
 def set_text(message):
+    if not is_owner(message):
+            return
+
     new_text = message.text.replace("/text", "").strip()
     if not new_text:
         bot.reply_to(message, "⚠️ Используйте: `/text Новый текст`")
@@ -139,11 +148,16 @@ def set_footer(message):
 # === Команда `/image` для загрузки фото ===
 @bot.message_handler(commands=['image'])
 def request_image(message):
+    if not is_owner(message):
+            return
+
     bot.reply_to(message, "📸 Отправьте изображение, и я загружу его на сайт.")
 
 # === Обработка загруженного фото ===
 @bot.message_handler(content_types=['photo'])
 def save_image(message):
+    if not is_owner(message):
+            return
     file_info = bot.get_file(message.photo[-1].file_id)
     downloaded_file = bot.download_file(file_info.file_path)
 
@@ -164,6 +178,9 @@ def save_image(message):
 # === Обработка неизвестных команд ===
 @bot.message_handler(func=lambda message: True)
 def handle_unknown_command(message):
+    if not is_owner(message):
+            return
+
     bot.send_message(
         message.chat.id,
         "⚠️ Команда не распознана.\n"
