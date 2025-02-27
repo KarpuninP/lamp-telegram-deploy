@@ -84,7 +84,7 @@ if [ -z "$TELEGRAM_TOKEN" ]; then
     read -p "Enter Telegram API Token: " TELEGRAM_TOKEN
 
     # We save the token in /etc/environment
-    echo "TELEGRAM_TOKEN=\"$TELEGRAM_TOKEN\"" | sudo tee -a /etc/environment > /dev/null
+    echo "TELEGRAM_TOKEN=\"$TELEGRAM_TOKEN\"" | sudo tee -a /etc/environment
     source /etc/environment  # Loading variables
     echo " Token saved /etc/environment"
 fi
