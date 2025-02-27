@@ -114,7 +114,7 @@ EOL
     sudo systemctl enable telegram-bot.service
 fi
 
-echo "=== Запускаем Telegram-бот ==="
+echo "=== Launching a Telegram bot ==="
 sudo systemctl start telegram-bot.service
 
-echo "=== Установка завершена! Сайт работает, бот запущен. ==="
+echo "=== Installation is complete! The site is working, the bot is running. ==="
