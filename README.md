@@ -12,7 +12,9 @@
 ## Установка
 Запустите следующую команду на сервере AWS:
 ```bash
-bash <(curl -sL https://raw.githubusercontent.com/username/repository/main/setup.sh)
+curl -sL -o setup.sh https://raw.githubusercontent.com/KarpuninP/lamp-telegram-deploy/dev/setup.sh
+chmod +x setup.sh
+sudo bash setup.sh
 ```
 Замените `username/repository` на ваш GitHub-репозиторий.
 
