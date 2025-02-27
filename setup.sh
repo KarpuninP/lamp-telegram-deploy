@@ -79,6 +79,17 @@ source "$PYTHON_VENV/bin/activate"
 pip install --upgrade pip
 pip install -r "$BOT_DIR/requirements.txt"
 
+# === Запрашиваем токен у пользователя, если его нет ===
+if [ -z "$TELEGRAM_TOKEN" ]; then
+    read -p "Введите Telegram API Token: " TELEGRAM_TOKEN
+
+    # Сохраняем токен в /etc/environment
+    echo "TELEGRAM_TOKEN=\"$TELEGRAM_TOKEN\"" | sudo tee -a /etc/environment > /dev/null
+    source /etc/environment  # Загружаем переменные
+    echo "✅ Токен сохранен в /etc/environment"
+fi
+
+
 # === Проверяем, существует ли systemd-сервис для бота ===
 SERVICE_FILE="/etc/systemd/system/telegram-bot.service"
 if [ -f "$SERVICE_FILE" ]; then

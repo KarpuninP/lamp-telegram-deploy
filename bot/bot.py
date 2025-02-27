@@ -3,8 +3,12 @@ import json
 import time
 import os
 
-TOKEN = "7422387240:AAGVLUZsxRlnokTiG0tG6q3q7o9wo3Euo3w"
-JSON_FILE = "../storage/data.json"
+# === Загружаем токен из переменной окружения ===
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+
+if not TOKEN:
+    print("❌ Ошибка: TELEGRAM_TOKEN не найден! Укажите его в /etc/environment и перезапустите сервер.")
+    exit(1)
 
 bot = telebot.TeleBot(TOKEN)
 
