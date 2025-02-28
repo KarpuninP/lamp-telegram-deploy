@@ -15,6 +15,9 @@ PROJECT_DIR="/var/www/project"
 PUBLIC_DIR="$PROJECT_DIR/public"
 BOT_DIR="$PROJECT_DIR/bot"
 PYTHON_VENV="$BOT_DIR/venv"
+CONF_FILE="/etc/httpd/conf.d/project.conf"
+SERVICE_FILE="/etc/systemd/system/telegram-bot.service"
+ENV_FILE="$PROJECT_DIR/.env"
 
 echo "=== Updating the system ==="
 sudo yum update -y
@@ -46,7 +49,6 @@ sudo chown -R ec2-user:ec2-user "$PROJECT_DIR"
 sudo chmod -R 755 "$PROJECT_DIR"
 
 # === Checking if Apache Virtual Host is configured ===
-CONF_FILE="/etc/httpd/conf.d/project.conf"
 if [ -f "$CONF_FILE" ]; then
     echo "Apache configuration already exists. Skipping setup."
 else
@@ -76,27 +78,31 @@ fi
 # === Activate the virtual environment and install dependencies ===
 echo "=== Installing dependencies Python ==="
 source "$PYTHON_VENV/bin/activate"
+
+# Let's check if python-dotenv is in requirements.txt
+if ! grep -q "python-dotenv" "$BOT_DIR/requirements.txt"; then
+    echo "python-dotenv" >> "$BOT_DIR/requirements.txt"
+fi
+
 pip install --upgrade pip
 pip install -r "$BOT_DIR/requirements.txt"
 
-# === Request a token from the user if they don't have one ===
-if [ -z "$TELEGRAM_TOKEN" ]; then
-    read -p "Enter Telegram API Token: " TELEGRAM_TOKEN
+deactivate
 
-    # We save the token in /etc/environment
-    echo "TELEGRAM_TOKEN=\"$TELEGRAM_TOKEN\"" | sudo tee -a /etc/environment
-    source /etc/environment  # Loading variables
-    echo " Token saved /etc/environment"
+# === Request a token from the user if they don't have one ===
+if [ ! -f "$ENV_FILE" ]; then
+    read -p "Enter Telegram API Token: " TELEGRAM_TOKEN
+    echo "TELEGRAM_TOKEN=$TELEGRAM_TOKEN" > "$ENV_FILE"
+    echo ".env created in $PROJECT_DIR"
+else
+    echo ".env already exists, skip creation."
 fi
 
 
 # === Checking if a systemd service exists for the bot ===
-SERVICE_FILE="/etc/systemd/system/telegram-bot.service"
-if [ -f "$SERVICE_FILE" ]; then
-    echo "Systemd service for the bot already exists. Skip the setup."
-else
+if [ ! -f "$SERVICE_FILE" ]; then
     echo "=== Create a systemd service for a Telegram bot ==="
-    sudo tee "$SERVICE_FILE" > /dev/null <<EOL
+    tee "$SERVICE_FILE" > /dev/null <<EOL
 [Unit]
 Description=Telegram Bot
 After=network.target
@@ -104,14 +110,25 @@ After=network.target
 [Service]
 User=ec2-user
 WorkingDirectory=$BOT_DIR
+EnvironmentFile=-$ENV_FILE
 ExecStart=$PYTHON_VENV/bin/python3 $BOT_DIR/bot.py
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 EOL
-    sudo systemctl daemon-reload
-    sudo systemctl enable telegram-bot.service
+    systemctl daemon-reload
+    systemctl enable telegram-bot.service
+else
+    echo "systemd-service for the bot already exists. Check for EnvironmentFile..."
+    # If the service doesn't have EnvironmentFile yet, let's add it
+    if ! grep -q "EnvironmentFile=" "$SERVICE_FILE"; then
+        sed -i "/\[Service\]/a EnvironmentFile=-$ENV_FILE" "$SERVICE_FILE"
+        echo "Added line EnvironmentFile=-$ENV_FILE в $SERVICE_FILE"
+        systemctl daemon-reload
+    else
+        echo "EnvironmentFile already registered."
+    fi
 fi
 
 echo "=== Launching a Telegram bot ==="
