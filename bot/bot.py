@@ -1,13 +1,15 @@
 import telebot
+from dotenv import load_dotenv
 import json
 import time
 import os
 
 # === Загружаем токен из переменной окружения ===
+load_dotenv()  
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 if not TOKEN:
-    print("❌ Ошибка: TELEGRAM_TOKEN не найден! Укажите его в /etc/environment и перезапустите сервер.")
+    print("❌ Ошибка: TELEGRAM TOKEN не найден! Укажите его в .env и перезапустите сервер.")
     exit(1)
 
 bot = telebot.TeleBot(TOKEN)
