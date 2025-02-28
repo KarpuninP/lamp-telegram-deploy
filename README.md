@@ -12,7 +12,7 @@
 ## Установка
 Запустите следующую команду на сервере AWS:
 ```bash
-curl -sL -o setup.sh https://raw.githubusercontent.com/KarpuninP/lamp-telegram-deploy/dev/setup.sh
+curl -sL -o setup.sh https://raw.githubusercontent.com/KarpuninP/lamp-telegram-deploy/master/setup.sh
 chmod +x setup.sh
 sudo bash setup.sh
 ```
