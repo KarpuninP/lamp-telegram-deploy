@@ -5,7 +5,8 @@ import time
 import os
 
 # === Загружаем токен из переменной окружения ===
-load_dotenv()  
+load_dotenv('/var/www/project/.env') 
+
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 if not TOKEN:
