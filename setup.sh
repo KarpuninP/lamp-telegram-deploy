@@ -1,56 +1,58 @@
 #!/bin/bash
 
-set -e  # Останавливаем выполнение при ошибках
+set -e  # Stop execution on errors
 
-# Проверка прав (без sudo -i)
+# Checking permissions (without sudo -i)
 if [ "$EUID" -ne 0 ]; then
-    echo "Перезапусти скрипт с правами root:"
+    echo "Restart the script with root rights:"
     echo "sudo bash setup.sh"
     exit 1
 fi
 
-# === ПЕРЕМЕННЫЕ ===
+# === VARIABLES ===
 GIT_REPO="https://github.com/KarpuninP/lamp-telegram-deploy.git"
 PROJECT_DIR="/var/www/project"
 PUBLIC_DIR="$PROJECT_DIR/public"
 BOT_DIR="$PROJECT_DIR/bot"
 PYTHON_VENV="$BOT_DIR/venv"
+CONF_FILE="/etc/httpd/conf.d/project.conf"
+SERVICE_FILE="/etc/systemd/system/telegram-bot.service"
+ENV_FILE="$PROJECT_DIR/.env"
 
-echo "=== Обновляем систему ==="
+echo "=== Updating the system ==="
 sudo yum update -y
 
-echo "=== Устанавливаем необходимые пакеты ==="
+echo "=== Install the necessary packages ==="
 sudo yum install -y git httpd php php-cli php-json php-mbstring python3 python3-pip python3-virtualenv unzip
 
-# === Проверяем, установлен ли Apache ===
+# === Check if Apache is installed ===
 if systemctl is-active --quiet httpd; then
-    echo "Apache уже установлен и запущен. Пропускаем установку."
+    echo "Apache already installed and running. Skip the installation."
 else
-    echo "=== Устанавливаем и запускаем Apache ==="
+    echo "=== Install and run Apache ==="
     sudo systemctl enable httpd
     sudo systemctl start httpd
 fi
 
-# === Проверяем, существует ли проект ===
+# === Checking if the project exists ===
 if [ -d "$PROJECT_DIR" ]; then
-    echo "Проект уже существует. Обновляем..."
+    echo "The project already exists. We are updating it...."
     cd "$PROJECT_DIR" && git pull origin master
 else
-    echo "Клонируем проект с GitHub..."
+    echo "Clone the project with GitHub..."
     sudo git clone "$GIT_REPO" "$PROJECT_DIR"
 fi
 
-# === Настраиваем права доступа ===
-echo "=== Проверяем права доступа ==="
+# === Setting up access rights ===
+echo "=== Checking access rights ==="
 sudo chown -R ec2-user:ec2-user "$PROJECT_DIR"
 sudo chmod -R 755 "$PROJECT_DIR"
 
-# === Проверяем, настроен ли Apache Virtual Host ===
-CONF_FILE="/etc/httpd/conf.d/project.conf"
+# === Checking if Apache Virtual Host is configured ===
 if [ -f "$CONF_FILE" ]; then
-    echo "Конфигурация Apache уже существует. Пропускаем настройку."
+    echo "Apache configuration already exists. Skipping setup."
 else
-    echo "=== Настраиваем Apache Virtual Host ==="
+    echo "=== Setting up Apache Virtual Host ==="
     sudo tee "$CONF_FILE" > /dev/null <<EOL
 <VirtualHost *:80>
     DocumentRoot "$PUBLIC_DIR"
@@ -65,27 +67,42 @@ EOL
     sudo systemctl restart httpd
 fi
 
-# === Проверяем, создано ли виртуальное окружение для бота ===
+# === Checking if a virtual environment has been created for the bot ===
 if [ -d "$PYTHON_VENV" ]; then
-    echo "Python venv уже существует. Пропускаем создание."
+    echo "Python venv already exists. Skipping creation."
 else
-    echo "=== Создаем виртуальное окружение Python ==="
+    echo "=== Create a Python Virtual Environment ==="
     python3 -m venv "$PYTHON_VENV"
 fi
 
-# === Активируем виртуальное окружение и устанавливаем зависимости ===
-echo "=== Устанавливаем зависимости Python ==="
+# === Activate the virtual environment and install dependencies ===
+echo "=== Installing dependencies Python ==="
 source "$PYTHON_VENV/bin/activate"
+
+# Let's check if python-dotenv is in requirements.txt
+if ! grep -q "python-dotenv" "$BOT_DIR/requirements.txt"; then
+    echo "python-dotenv" >> "$BOT_DIR/requirements.txt"
+fi
+
 pip install --upgrade pip
 pip install -r "$BOT_DIR/requirements.txt"
 
-# === Проверяем, существует ли systemd-сервис для бота ===
-SERVICE_FILE="/etc/systemd/system/telegram-bot.service"
-if [ -f "$SERVICE_FILE" ]; then
-    echo "Systemd-сервис для бота уже существует. Пропускаем настройку."
+deactivate
+
+# === Request a token from the user if they don't have one ===
+if [ ! -f "$ENV_FILE" ]; then
+    read -p "Enter Telegram API Token: " TELEGRAM_TOKEN
+    echo "TELEGRAM_TOKEN=$TELEGRAM_TOKEN" > "$ENV_FILE"
+    echo ".env created in $PROJECT_DIR"
 else
-    echo "=== Создаем systemd-сервис для Telegram-бота ==="
-    sudo tee "$SERVICE_FILE" > /dev/null <<EOL
+    echo ".env already exists, skip creation."
+fi
+
+
+# === Checking if a systemd service exists for the bot ===
+if [ ! -f "$SERVICE_FILE" ]; then
+    echo "=== Create a systemd service for a Telegram bot ==="
+    tee "$SERVICE_FILE" > /dev/null <<EOL
 [Unit]
 Description=Telegram Bot
 After=network.target
@@ -93,17 +110,28 @@ After=network.target
 [Service]
 User=ec2-user
 WorkingDirectory=$BOT_DIR
+EnvironmentFile=-$ENV_FILE
 ExecStart=$PYTHON_VENV/bin/python3 $BOT_DIR/bot.py
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 EOL
-    sudo systemctl daemon-reload
-    sudo systemctl enable telegram-bot.service
+    systemctl daemon-reload
+    systemctl enable telegram-bot.service
+else
+    echo "systemd-service for the bot already exists. Check for EnvironmentFile..."
+    # If the service doesn't have EnvironmentFile yet, let's add it
+    if ! grep -q "EnvironmentFile=" "$SERVICE_FILE"; then
+        sed -i "/\[Service\]/a EnvironmentFile=-$ENV_FILE" "$SERVICE_FILE"
+        echo "Added line EnvironmentFile=-$ENV_FILE в $SERVICE_FILE"
+        systemctl daemon-reload
+    else
+        echo "EnvironmentFile already registered."
+    fi
 fi
 
-echo "=== Запускаем Telegram-бот ==="
+echo "=== Launching a Telegram bot ==="
 sudo systemctl start telegram-bot.service
 
-echo "=== Установка завершена! Сайт работает, бот запущен. ==="
+echo "=== Installation is complete! The site is working, the bot is running. ==="
