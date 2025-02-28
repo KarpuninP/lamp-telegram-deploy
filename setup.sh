@@ -86,8 +86,8 @@ fi
 
 pip install --upgrade pip
 pip install -r "$BOT_DIR/requirements.txt"
-
 deactivate
+
 
 # === Request a token from the user if they don't have one ===
 if [ ! -f "$ENV_FILE" ]; then
@@ -110,7 +110,6 @@ After=network.target
 [Service]
 User=ec2-user
 WorkingDirectory=$BOT_DIR
-EnvironmentFile=-$ENV_FILE
 ExecStart=$PYTHON_VENV/bin/python3 $BOT_DIR/bot.py
 Restart=always
 
@@ -120,18 +119,11 @@ EOL
     systemctl daemon-reload
     systemctl enable telegram-bot.service
 else
-    echo "systemd-service for the bot already exists. Check for EnvironmentFile..."
-    # If the service doesn't have EnvironmentFile yet, let's add it
-    if ! grep -q "EnvironmentFile=" "$SERVICE_FILE"; then
-        sed -i "/\[Service\]/a EnvironmentFile=-$ENV_FILE" "$SERVICE_FILE"
-        echo "Added line EnvironmentFile=-$ENV_FILE в $SERVICE_FILE"
-        systemctl daemon-reload
-    else
-        echo "EnvironmentFile already registered."
-    fi
+    echo "systemd service for the bot already exists. Skipping setup."
 fi
 
+
 echo "=== Launching a Telegram bot ==="
-sudo systemctl start telegram-bot.service
+systemctl restart telegram-bot.service
 
 echo "=== Installation is complete! The site is working, the bot is running. ==="
